@@ -42,7 +42,7 @@ h1, h2, h3, .left, .btn, .eyebrow, #element {
   width: 380px;
   height: 380px;
   border-radius: 50%;
-  pointer-events: none;
+  pointer-events: none; /* FIX: was missing, could intercept clicks on top-level content */
   background: radial-gradient(circle, rgba(170, 107, 228, 0.10), transparent 70%);
   transform: translate(-50%, -50%);
   z-index: 0;
@@ -503,6 +503,7 @@ section h1 {
   inset: 0;
   background: radial-gradient(circle at top right, rgba(170, 107, 228, 0.12), transparent 60%);
   opacity: 0;
+  pointer-events: none; /* FIX: this invisible overlay sat above the <a> tag and was eating clicks */
   transition: opacity 0.35s ease;
 }
 .project-card:hover {
@@ -547,6 +548,8 @@ section h1 {
   font-size: 0.9rem;
   font-weight: 500;
   transition: gap 0.25s ease;
+  position: relative; /* FIX: keeps the link above any overlay in stacking order */
+  z-index: 2;
 }
 .project-card a:hover {
   gap: 12px;
